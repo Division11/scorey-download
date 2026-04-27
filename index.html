@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Scorey - Redirecting</title>
+    <style>
+        /* Applied Scorey Theme */
+        body { 
+            background-color: #1C3156; 
+            color: #FFBF00; 
+            font-family: sans-serif; 
+            display: flex; 
+            flex-direction: column;
+            justify-content: center; 
+            align-items: center; 
+            height: 100vh; 
+            margin: 0; 
+        }
+        .loader { 
+            border: 4px solid rgba(255, 191, 0, 0.1); 
+            border-top: 4px solid #FFBF00; 
+            border-radius: 50%; 
+            width: 40px; 
+            height: 40px; 
+            animation: spin 1s linear infinite; 
+            margin-bottom: 20px;
+        }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+    </style>
+</head>
+<body>
+    <div class="loader"></div>
+    <p>Opening the App Store...</p>
+
+    <script type="text/javascript">
+        // Destination URLs provided by User
+        const IOS_URL = "https://apps.apple.com/app/id6761244968";
+        const ANDROID_URL = "https://play.google.com/store/apps/details?id=com.division11.scorey";
+        const FALLBACK_URL = ANDROID_URL; // Default fallback
+
+        function handleRedirect() {
+            const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+            // iOS detection (iPhone, iPad, iPod)
+            if (/iPad|iPhone|iPod/.test(userAgent) && !window.MSStream) {
+                window.location.replace(IOS_URL);
+            } 
+            // Android detection
+            else if (/android/i.test(userAgent)) {
+                window.location.replace(ANDROID_URL);
+            } 
+            // Fallback for Desktop/PC
+            else {
+                window.location.replace(FALLBACK_URL);
+            }
+        }
+
+        // Execute redirect on page load
+        window.onload = handleRedirect;
+    </script>
+</body>
+</html>
